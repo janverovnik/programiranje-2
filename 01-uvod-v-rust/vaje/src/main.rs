@@ -7,12 +7,39 @@ use core::panic;
 /// Napišite funkcijo `fib`, ki sprejme začetna člena fibbonacijevega zaporedja, število `n` in vrne `n`-ti člen zaporedja
 
 fn fib(a0: u32, a1: u32, n: u32) -> u32 {
-    panic!("Not implemented");
-}
+
+    let mut prvi = a0;
+    let mut drugi = a1;
+    let mut counter = n;
+
+    loop  {
+
+        if counter == 0 {
+            return prvi;
+        } 
+        else {
+            let pomoc = drugi;
+            drugi = prvi + drugi;
+            prvi = pomoc;
+            counter -= 1;
+        }
+        
+    }
+
+    }
+    
+
 
 /// ------------------------------------------------------------------------------------------------
 
 /// Napišite funkcijo `je_prestopno`, ki za podano leto preveri, ali je prestopno
+
+fn je_prestopno(leto: u32) -> bool {
+    if leto % 400 == 0 { return true; } 
+    else
+    if leto % 100 == 0 { return false; } 
+    return leto % 4 == 0;
+}
 
 /// ------------------------------------------------------------------------------------------------
 
@@ -21,13 +48,40 @@ fn fib(a0: u32, a1: u32, n: u32) -> u32 {
 // Dan, mesec, leto
 type Date = (u32, u32, u32);
 
+fn je_veljaven_datum(datum: Date) -> bool {
+
+    let (x, y, z) = datum;
+    let prestop = je_prestopno(z); 
+
+    if y == 1 || y == 3 || y == 5 || y == 7 || y == 8 || y == 10 || y == 12 {
+        return 0 < x && x < 32;
+    } 
+    else if y == 4 || y == 6 || y == 9 || y == 11 {
+        return 0 < x && x < 31;
+        
+    } 
+    else if y == 2 { 
+        if prestop {
+        return 0 < x && x < 30; 
+    }
+    return 0 < x && x < 29;
+    }
+    return false;
+}
+
+
 /// ------------------------------------------------------------------------------------------------
 
 /// Napišite funkcijo `iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32`, ki sprejme iteracijsko funkcijo, zaustavitveni pogoj in začetno vrednost.
 /// Iteracijsko funkcijo zaporedoma uporablja, dokler za rezultat ne velja zaustavitveni pogoj, in vrne prvi rezultat, ki zadošča zaustavitvenemu pogoju.
 
 fn iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32 {
-    panic!("Not implemented");
+    loop {
+        if cond(start) {
+            return start;
+        }
+        start = fun(start);
+    }
 }
 
 /// ------------------------------------------------------------------------------------------------
@@ -40,8 +94,24 @@ fn iteracija(mut start: u32, fun: fn(u32) -> u32, cond: fn(u32) -> bool) -> u32 
 /// 4. Če ni, izberemo nov interval [a, b] glede na predznak f(c)
 /// 5. Ponavljamo korake 2-4
 
+fn absolute(num: f64) -> f64 {
+    if num < 0. { return -num; }
+    return num
+}
+
 fn bisekcija(mut a: f64, mut b: f64, fun: fn(f64) -> f64, prec: f64) -> f64 {
-    panic!("Not implemented");
+    if a > b { panic!("Izberi ustrezen interval") }
+    if fun(a) * fun(b) < 0. { panic!("Izberi ustrezen interval") }
+
+    let mut c = (a + b) / 2.;
+
+    if absolute(c) < prec { return c; }
+
+    if c * a < 0. {
+    return bisekcija(a, c, fun, prec); }
+    return bisekcija(b, c, fun, prec)
+
+    
 }
 
 /// ------------------------------------------------------------------------------------------------
@@ -114,7 +184,17 @@ fn pyramid(n: u32) {
 /// A B C D C B A
 /// Napišite funkcijo `fn selection_sort(mut arr: [u32])`, ki uredi tabelo `arr` z uporabo algoritma urejanja z izbiranjem
 
-fn main() {}
+fn main() {
+    let a = fib(0, 1, 10);
+    println!("{}", a);
+
+    let b = je_prestopno(2001);
+    println!("{}", b);
+
+    let c = iteracija(8, |x| x + 1, |x| x > 32);
+    println!("{}", c)
+}
+
 
 #[cfg(test)]
 mod tests {
