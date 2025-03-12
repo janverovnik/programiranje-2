@@ -79,11 +79,90 @@ impl GZ {
     }
 }
 
+enum BinOperacija {
+    Plus,
+    Minus,
+    Times,
+    Power,
+}
 
+enum Izraz {
+    Konstanta(u32),
+    Operacija(Box<Izraz>, BinOperacija, Box<Izraz>),
+}
 
+impl Izraz {
+    fn eval(&self) -> u32 {
+        use crate::Izraz::Konstanta;
+        use crate::Izraz::Operacija;
+        use crate::BinOperacija::Plus;
+        use crate::BinOperacija::Minus;
+        use crate::BinOperacija::Times;
+        use crate::BinOperacija::Power;
+
+        fn pomozna(izraz: &Izraz) -> u32{
+            match &izraz {
+                &Konstanta(x) => *x,
+                &Operacija(x, op, y) =>
+                    match op {
+                        Plus => pomozna(&x) + pomozna(&y),
+                        Minus => pomozna(&x) - pomozna(&y),
+                        Times => pomozna(&x) * pomozna(&y),
+                        Power => pomozna(&x).pow(pomozna(&y)),
+                }
+        }
+
+    }
+    pomozna(&self)    
+    }
+
+    fn collect(&self) -> u32 {
+        use crate::Izraz::Konstanta;
+        use crate::Izraz::Operacija;
+
+        fn pomozna(izraz: &Izraz) -> u32{
+            match &izraz {
+                &Konstanta(_) => 1,
+                &Operacija(x, _, y) => pomozna(&x) + pomozna(&y)
+    }
+    }
+    pomozna(&self)
+    }   
+
+    fn izpis(&self) -> String {
+        use crate::Izraz::Konstanta;
+        use crate::Izraz::Operacija;
+        use crate::BinOperacija::Plus;
+        use crate::BinOperacija::Minus;
+        use crate::BinOperacija::Times;
+        use crate::BinOperacija::Power;
+
+        fn pomozna(izraz: &Izraz) -> String {
+            match &izraz {
+                &Konstanta(x) => format!{"{}", *x},
+                &Operacija(x, op, y) =>
+                    match op {
+                        Plus => "(".to_owned() + &pomozna(&x) + ")" + " " +&String::from("+") + " " + "(" + &pomozna(&y) + ")",
+                        Minus => "(".to_owned() + &pomozna(&x) + ")" + " " + &String::from("_") + " " + &pomozna(&y) + ")",
+                        Times => "(".to_owned() + &pomozna(&x) + ")" + " " + &String::from("*") + " " +  "(" + &pomozna(&y) + ")",
+                        Power => "(".to_owned() + &pomozna(&x) + ")" + &String::from("**")  + "(" + &pomozna(&y) + ")",
+                } 
+        }
+    } 
+    pomozna(&self)
+    }
+
+    }
 fn main() {
-    let mut a = GZ::new(2, 4);
-    println!("{}", a.next());
+    // let mut a = GZ::new(2, 4);
+    // println!("{}", a.next());
+let primer_1: Izraz = Izraz::Operacija(Box::new(Izraz::Konstanta(1)), BinOperacija::Plus, Box::new(Izraz::Operacija(Box::new(Izraz::Konstanta(2)), BinOperacija::Times, Box::new(Izraz::Konstanta(3)))));
+let primer_2: Izraz = Izraz::Operacija(Box::new(Izraz::Operacija(Box::new(Izraz::Konstanta(1)), BinOperacija::Plus, Box::new(Izraz::Konstanta(2)))), BinOperacija::Times, Box::new(Izraz::Konstanta(3)));
+let primer_3: Izraz = Izraz::Operacija(Box::new(Izraz::Operacija(Box::new(Izraz::Konstanta(1)), BinOperacija::Plus, Box::new(Izraz::Konstanta(2)))), BinOperacija::Plus, Box::new(Izraz::Konstanta(3)));
+let primer_4: Izraz = Izraz::Operacija(Box::new(Izraz::Operacija(Box::new(Izraz::Konstanta(5)), BinOperacija::Power, Box::new(Izraz::Konstanta(2)))), BinOperacija::Plus, Box::new(Izraz::Operacija(Box::new(Izraz::Konstanta(3)), BinOperacija::Power, Box::new(Izraz::Konstanta(2)))));
 
+println!("{}", primer_4.eval());
+println!("{}", primer_4.collect());
+println!("{}", primer_4.izpis());
 }
 
