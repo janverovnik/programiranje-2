@@ -77,7 +77,6 @@ impl Tocka<f64, String> {
     }
 }
 
-<<<<<<< HEAD:04-polimorfizem/predavanja/src/main.rs
 impl<T: PartialEq, O: PartialEq> PartialOrd for Tocka<T, O> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         None
@@ -93,8 +92,6 @@ impl<T: PartialEq, O: PartialEq> PartialOrd for Tocka<T, O> {
 //    }
 //}
 
-=======
->>>>>>> c92c432d314cbbf04ffada51c6ad97bacd01f37f:04-polimorfizem/predavanja/generiki/src/main.rs
 fn main() {
     let v1 = vec![1, 2, 3, 4, 5, 6];
     let n1 = prestej(&v1);
