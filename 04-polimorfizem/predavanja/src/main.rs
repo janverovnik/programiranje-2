@@ -100,14 +100,14 @@ impl<T: PartialEq, O: PartialEq> PartialOrd for Tocka<T, O> {
     }
 }
 
-impl<T: ToString> ToString for Option<T> {
-    fn to_string(&self) -> String {
-        match self {
-            None => String::from("None"),
-            Some(x) => format!("Some({})", x.to_string()),
-        }
-    }
-}
+// impl<T: ToString> ToString for Option<T> {
+//    fn to_string(&self) -> String {
+//        match self {
+//            None => String::from("None"),
+//            Some(x) => format!("Some({})", x.to_string()),
+//        }
+//    }
+//}
 
 fn main() {
     let v1 = vec![1, 2, 3, 4, 5, 6];
@@ -132,6 +132,6 @@ fn main() {
         p1.to_string(),
         p2.absolutna_vrednost()
     );
-    let p = najvecji(&vec![p1, p2]);
-    println!("Največja točka je {}", p.to_string());
+    //let p = najvecji(&vec![p1, p2]);
+    // println!("Največja točka je {}", p.to_string());
 }
