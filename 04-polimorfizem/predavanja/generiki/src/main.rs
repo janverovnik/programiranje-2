@@ -1,8 +1,6 @@
-use std::cmp::Ordering;
 use std::cmp::PartialOrd;
-use std::fmt::Display;
 
-fn prestej_i32(v: &Vec<i32>) -> i32 {
+fn prestej_i32(v: &Vec<i32>) -> usize {
     let mut stevilo = 0;
     for _ in v {
         stevilo += 1;
@@ -10,7 +8,7 @@ fn prestej_i32(v: &Vec<i32>) -> i32 {
     stevilo
 }
 
-fn prestej_f64(v: &Vec<f64>) -> i32 {
+fn prestej_f64(v: &Vec<f64>) -> usize {
     let mut stevilo = 0;
     for _ in v {
         stevilo += 1;
@@ -18,38 +16,23 @@ fn prestej_f64(v: &Vec<f64>) -> i32 {
     stevilo
 }
 
-fn prestej<T>(v: &Vec<T>) -> i32 {
+fn prestej<T>(v: &Vec<T>) -> usize {
     let mut stevilo = 0;
     for _ in v {
         stevilo += 1;
     }
     stevilo
-}
-
-fn najvecji<T: PartialOrd>(v: &Vec<T>) -> Option<&T> {
-    let mut najvecji = None;
-    for x in v {
-        match najvecji {
-            None => najvecji = Some(x),
-            Some(m) => {
-                if m < x {
-                    najvecji = Some(x)
-                }
-            }
-        }
-    }
-    najvecji
 }
 
 // enum Option<T> {
 //     None,
-//     Some(T)
+//     Some(T),
 // }
 
-enum Result<T, E> {
-    Ok(T),
-    Err(E),
-}
+// enum Result<T, E> {
+//     Ok(T),
+//     Err(E),
+// }
 
 #[derive(PartialEq)]
 struct Tocka<T, O> {
@@ -94,6 +77,7 @@ impl Tocka<f64, String> {
     }
 }
 
+<<<<<<< HEAD:04-polimorfizem/predavanja/src/main.rs
 impl<T: PartialEq, O: PartialEq> PartialOrd for Tocka<T, O> {
     fn partial_cmp(&self, other: &Self) -> Option<Ordering> {
         None
@@ -109,6 +93,8 @@ impl<T: PartialEq, O: PartialEq> PartialOrd for Tocka<T, O> {
 //    }
 //}
 
+=======
+>>>>>>> c92c432d314cbbf04ffada51c6ad97bacd01f37f:04-polimorfizem/predavanja/generiki/src/main.rs
 fn main() {
     let v1 = vec![1, 2, 3, 4, 5, 6];
     let n1 = prestej(&v1);
@@ -132,6 +118,9 @@ fn main() {
         p1.to_string(),
         p2.absolutna_vrednost()
     );
+<<<<<<< HEAD:04-polimorfizem/predavanja/src/main.rs
     //let p = najvecji(&vec![p1, p2]);
     // println!("Največja točka je {}", p.to_string());
+=======
+>>>>>>> c92c432d314cbbf04ffada51c6ad97bacd01f37f:04-polimorfizem/predavanja/generiki/src/main.rs
 }
