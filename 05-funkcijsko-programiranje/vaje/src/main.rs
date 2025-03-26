@@ -7,12 +7,73 @@
 //  ponavljaj: int -> ('a -> 'a) -> 'a -> 'a // Ponovi funkcijo n-krat
 //  filter: ('a -> bool) -> 'a list -> 'a list // Vrne seznam elementov, ki zadoščajo pogoju - uporabite Vec<T> namesto list in že vgrajeno funkcijo filter
 
-
-
-
-
+fn apply_int(f: &dyn Fn(i64) -> i64, x: i64) -> i64 {f(x)}
+fn apply<T, H>(f: &dyn Fn(T) -> H, x: T) -> H {f(x)}
+fn apply2<T, H>(f: &dyn Fn(T, T) -> H, x: T, y: T) -> H {f(x, y)}
+fn map<T, H>(f: &dyn Fn(T) -> H, v: Vec<T>) -> Vec<H> {v.into_iter().map(f).collect()}
+fn ponavljaj<T>(n: u32, f: &dyn Fn(T) -> T, mut x: T) -> T { 
+    for _ in 1..n {x = f(x)};
+    x
+}
+fn filter<T>(f: &dyn Fn(&T) -> bool, v: Vec<T>) -> Vec <T> {v.into_iter().filter(f).collect()}
 
 // Vzemite zaporedja iz prejšnjih vaj in naredite nov objekt, ki sprejme zaporedje in ga naredi iterabilnega
+
+struct AritmeticnoZaporedje {
+    zacetni: i64,
+    trenutni: i64,
+    plus: i64
+}
+
+use AritmeticnoZaporedje as AZ;
+
+impl AZ {
+    fn new(zacetni: i64, dodatek: i64) -> AZ {
+        return AZ {
+            zacetni: zacetni,
+            trenutni: zacetni,
+            plus: dodatek
+        };
+    }  
+    fn next(&mut self) -> i64 {
+        let a = self.trenutni;
+        self.trenutni += self.plus;
+        return a;
+    }
+    fn n_th(&mut self, n: i64) -> i64 {
+        return self.zacetni + n * self.plus;
+    }
+    fn reset(&mut self) {
+        self.trenutni = self.zacetni;
+    }
+    fn current(&mut self) -> i64 {
+        return self.trenutni;
+    }
+    fn sum(&mut self, n: i64) -> i64 {
+        let mut vsota = 0;
+        for i in 0..n {
+            vsota += self.n_th(i);
+        }
+        return vsota
+    }
+}
+
+impl AZ {
+    fn vsota(a: AZ, b: AZ) -> AZ {
+        return AZ {
+            zacetni: a.zacetni + b.zacetni,
+            trenutni: a.trenutni + b.trenutni,
+            plus: a.plus + b.plus
+        }
+    }
+    fn produkt(a: AZ, b: AZ) -> AZ {
+        return AZ {
+            zacetni: a.zacetni * b.zacetni,
+            trenutni: a.trenutni * b.trenutni,
+            plus: a.plus * b.zacetni + b.plus * a.zacetni + a.plus * b.plus
+        }
+    }
+}
 
 // Iteratorji
 
@@ -26,7 +87,16 @@
 // vektor Option<T> in izpiše vse T-je 
 // vektor Option<T> in vrne število Some-ov 
 // odfiltrira števila deljena s 3 
- 
+
+
+
+
+
+
+
+
+
+
 // Dopolnite spodnjo funkcijo, da vrne niz, kjer so vse prve črke posameznih besed velike
 // ["Just,", " ", "hello", " ", "world", "!"] -> "Just, Hello World", "!"
 // pub fn capitalize_words_string(words: &[&str]) -> String {
@@ -85,3 +155,11 @@ fn test_degenerate_cases() {
 
 
 */
+fn main() {
+    let f_1 = |x: i64| -> i64 {x * x};
+    println!("{}", ponavljaj(6, &f_1, 2));
+
+    let f_2 = |x: &u64| -> bool {*x % 2 == 0};
+    let v = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 42];
+    println!("{:?}", filter(&f_2, v));
+}
