@@ -8,21 +8,26 @@
 //  ponavljaj: int -> ('a -> 'a) -> 'a -> 'a // Ponovi zaprtje n-krat
 //  filter: ('a -> bool) -> 'a list -> 'a list // Vrne seznam elementov, ki zadoščajo pogoju - uporabite Vec<T> namesto list in že vgrajeno funkcijo filter
 
+
+
+
+
+
 // Vzemite zaporedja iz prejšnjih vaj in naredite nov objekt, ki sprejme zaporedje in ga naredi iterabilnega
 
 // Iteratorji
 
-// Napišite funkcijo, ki sprejme vektor XYZ in s pomočjo iteratorja naredi W
-// števil in izpiše vsako v svojo vrstico
-// nizov in izpiše njihove dolžine
-// nizov in vrne vsoto njihovih dolžin
-// vektor parov (i32, i32) in vrne vsoto njihovih pozitivnih produktov
-// dva vektorja <i32> in vrne vektor, ki vsebuje vsote parov
-// dva vektorja <i32> in vrne vsoto poparjenih pozitivni produktov s pomočjo ene izmed prejšnjih nalog
-// vektor Option<T> in izpiše vse T-je
-// vektor Option<T> in vrne število Some-ov
-// odfiltrira števila deljena s 3
-
+// Napišite funkcijo, ki sprejme vektor XYZ in s pomočjo iteratorja naredi W 
+// števil in izpiše vsako v svojo vrstico 
+// nizov in izpiše njihove dolžine 
+// nizov in vrne vsoto njihovih dolžin 
+// vektor parov (i32, i32) in vrne vsoto njihovih pozitivnih produktov 
+// dva vektorja <i32> in vrne vektor, ki vsebuje vsote parov 
+// dva vektorja <i32> in vrne vsoto poparjenih pozitivni produktov s pomočjo ene izmed prejšnjih nalog 
+// vektor Option<T> in izpiše vse T-je 
+// vektor Option<T> in vrne število Some-ov 
+// odfiltrira števila deljena s 3 
+ 
 // Dopolnite spodnjo funkcijo, da vrne niz, kjer so vse prve črke posameznih besed velike
 // ["Just,", " ", "hello", " ", "world", "!"] -> "Just, Hello World", "!"
 pub fn capitalize_words_string(words: &[&str]) -> String {
